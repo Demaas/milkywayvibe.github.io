@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Млечный путь</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        background: url("milkyway2.jpg") no-repeat center center fixed;
+        background-size: cover;
+        color: white;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        min-height: 100vh;
+      }
+      header {
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 20px;
+        text-align: center;
+        position: relative;
+        z-index: 200;
+      }
+      h1 {
+        margin: 0;
+        font-size: 2.5rem;
+      }
+      .nav-btn {
+        background: transparent;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        margin: 0 15px;
+        position: relative;
+        transition: all 0.3s;
+      }
+      .nav-btn:hover {
+        transform: translateY(-3px);
+      }
+      .nav-btn.active {
+        font-weight: bold;
+      }
+      .nav-btn.active::after {
+        content: "";
+        position: absolute;
+        bottom: 5px;
+        left: 20px;
+        right: 20px;
+        height: 2px;
+        background: white;
+      }
+      .content {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 30px;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 15px;
+        line-height: 1.6;
+        font-size: 1.2rem;
+        text-align: center;
+      }
+      .rocket-container {
+        position: fixed;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+      }
+      .rocket {
+        width: 80px;
+        height: 150px;
+        transition: all 0.3s;
+      }
+      .rocket:hover {
+        transform: translateY(-5px);
+      }
+      .blur-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
+        z-index: 999;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.5s ease;
+      }
+      .blur-overlay.active {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        opacity: 1;
+      }
+      @keyframes launch {
+        0% {
+          transform: translate(-50%, 0) scale(1);
+        }
+        100% {
+          transform: translate(-50%, -100vh) scale(0.5);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Видимая ракета (в отличие от второй страницы) -->
+    <div class="rocket-container" id="rocket">
+      <img src="rocket.png" alt="Ракета" class="rocket" />
+    </div>
+
+    <header>
+      <h1>Млечный путь</h1>
+      <nav>
+        <button class="nav-btn active">Главная</button>
+        <button class="nav-btn" id="planetsBtn">Планеты</button>
+      </nav>
+    </header>
+
+    <main>
+      <div class="content">
+        <p>
+          Наша Солнечная система - это гравитационно связанная система,
+          состоящая из Солнца и объектов, вращающихся вокруг него. Она включает
+          8 планет, их спутники, карликовые планеты, астероиды и кометы. Все эти
+          тела движутся в пределах галактики Млечный Путь.
+        </p>
+      </div>
+    </main>
+
+    <div class="blur-overlay" id="blurOverlay"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const rocket = document.getElementById("rocket");
+        const blurOverlay = document.getElementById("blurOverlay");
+        const planetsBtn = document.getElementById("planetsBtn");
+
+        // Анимация перехода на страницу планет
+        planetsBtn.addEventListener("click", function () {
+          blurOverlay.classList.add("active");
+          rocket.style.animation = "launch 2s forwards";
+          setTimeout(() => {
+            window.location.href = "planets.html";
+          }, 2000);
+        });
+      });
+    </script>
+  </body>
+</html>
